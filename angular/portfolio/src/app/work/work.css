@@ -1,0 +1,29 @@
+.title {
+  width: 14rem;
+  height: 3rem;
+  margin: 0 auto;
+  margin-bottom: 4rem;
+  position: relative;
+  text-align: center;
+}
+.title h2 {
+  font-size: 40px;
+  font-weight: 900;
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+  top: 0;
+}
+
+.userWork .works img{
+  width: 100%;
+}
+.works h2{
+  color: rgb(159, 74, 0);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+.works p{
+  color: rgb(77, 77, 77);
+  font-weight: 200;
+  font-size: 1rem;
+}

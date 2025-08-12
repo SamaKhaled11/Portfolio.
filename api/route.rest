@@ -1,0 +1,52 @@
+GET http://localhost:3000/adminRoute
+###
+GET http://localhost:3000/userRoute
+###
+GET http://localhost:3000/contactRoute
+###
+GET http://localhost:3000/userRoute/689774cd7786eef3d180ebfa
+###
+
+POST http://localhost:3000/userRoute
+Content-Type: application/json
+
+{
+    "name": "Sama",
+    "age": 21,
+    "email": "sama@gmail.come",
+    "jobTitle": "web developer",
+    "freelance": "avaliable",
+    "location": "egypt",
+    "userImage": "./imgs/hero.jpg"
+}
+###
+POST http://localhost:3000/contactRoute/
+Content-Type: application/json
+
+{
+     "name": "John Doe",
+  "email": "john@example.com",
+  "subject": "Hello",
+  "message": "This is a message"
+}
+###
+POST http://localhost:3000/adminRoute/
+Content-Type: application/json
+
+{
+    "userName": "Samak",
+    "password": "1234"
+}
+###
+DELETE http://localhost:3000/contactRoute/689b0aed01fda6f0fe66da82
+###
+DELETE http://localhost:3000/adminRoute/689a28194aa13e9a2fe275ec
+###
+
+PATCH http://localhost:3000/userRoute/689774cd7786eef3d180ebfa
+Content-Type: application/json
+
+{
+    "name": "Sama Khaled",
+    "age":22
+}

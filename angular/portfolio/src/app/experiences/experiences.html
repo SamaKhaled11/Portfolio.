@@ -1,0 +1,15 @@
+<div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="title position-relative mt-5 pt-5">
+    <div class="backimg position-absolute"></div>
+    <h2 class="pb-2 position-relative">Experiences.</h2>
+  </div>
+
+  <div class="container">
+    <div class="row g-5 bg-body-tertiary pt-5 justify-content-center">
+      <div class="col-12 col-md-4 exper text-center p-2 m-3" *ngFor="let item of experList">
+        <h2>{{item.experience}}</h2>
+        <h3>{{item.level}}</h3>
+      </div>
+    </div>
+  </div>
+</div>

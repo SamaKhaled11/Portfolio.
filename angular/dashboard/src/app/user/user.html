@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Job Title</th>
+          <th>Freelance</th>
+          <th>Location</th>
+          <th>User Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of userList">
+          <td data-label="Name">{{ item.name }}</td>
+          <td data-label="Age">{{ item.age }}</td>
+          <td data-label="Email">{{ item.email }}</td>
+          <td data-label="Job Title">{{ item.jobTitle }}</td>
+          <td data-label="Freelance">{{ item.freelance }}</td>
+          <td data-label="Location">{{ item.location }}</td>
+          <td data-label="User Image">
+            <img [src]="item.userImage" alt="user image" style="max-width: 80px; border-radius: 6px;"/>
+          </td>
+          <td data-label="Actions">
+            <button class="btn btn-primary" (click)="onEdit(item)">Edit</button>
+            <button class="btn btn-danger" (click)="onDeleteUser(item._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card-body mt-3">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="userOpj.name" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label>Age</label>
+      <input type="number" [(ngModel)]="userOpj.age" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label>Email</label>
+      <input type="email" [(ngModel)]="userOpj.email" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label>Job Title</label>
+      <input type="text" [(ngModel)]="userOpj.jobTitle" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label>Freelance</label>
+      <input type="text" [(ngModel)]="userOpj.freelance" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label>Location</label>
+      <input type="text" [(ngModel)]="userOpj.location" class="form-control" />
+    </div>
+    <div class="col-md-12">
+      <label>User Image URL</label>
+      <input type="text" [(ngModel)]="userOpj.userImage" class="form-control" />
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-6">
+      <button class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    </div>
+    <div class="col-6 text-end">
+      <button
+        *ngIf="!userOpj._id"
+        class="btn btn-success"
+        (click)="onSaveUser()"
+      >
+        Save
+      </button>
+      <button
+        *ngIf="userOpj._id"
+        class="btn btn-success"
+        (click)="onUpdateUser()"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</div>

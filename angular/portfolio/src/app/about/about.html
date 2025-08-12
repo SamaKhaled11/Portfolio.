@@ -1,0 +1,28 @@
+       <div class="container mt-5 pt-5">
+       <div class="row" *ngFor="let item of userList">
+           <div class="cooo">
+            <div class="img-layout">
+              <div class="dot-bg"></div>
+              <img src="{{item.userImage}}" alt="hero">
+            </div>
+        </div>
+          <div class="about-text col-md-6 pt-2 ">
+                           <div class="about_cont">
+                <h2>HELLO,I am  Rdam smith</h2>
+
+                <hr/>
+                 <div class="cont_info">
+          <h3><span>Name:</span> {{ item.name }}</h3>
+          <h3><span>Job Title:</span> {{ item.jobTitle }}</h3>
+          <h3><span>Age:</span> {{ item.age }}</h3>
+          <h3><span>Location:</span> {{ item.location }}</h3>
+          <h3><span>Freelance:</span> {{ item.freelance }}</h3>
+          <h3><span>E-mail:</span> {{ item.email }}</h3>
+                        <div class="clr"></div>
+                    <button>Download CV<i class="fa-solid fa-download"></i></button>
+                    <button class="b2">Hire me<i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+           </div>
+         </div>
+        </div>

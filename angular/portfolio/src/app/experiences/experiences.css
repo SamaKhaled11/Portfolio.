@@ -1,0 +1,39 @@
+.title {
+  width: 12rem;
+  height: 3rem;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  position: relative;
+  text-align: center;
+}
+.title h2 {
+  font-size: 40px;
+  font-weight: 900;
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+  top: 0;
+}
+
+.exper {
+  background-color: rgb(230, 230, 230);
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.exper h2 {
+  color: rgb(159, 74, 0);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.exper h3 {
+  color: rgb(77, 77, 77);
+  font-weight: 200;
+  font-size: 2rem;
+}
+
+body {
+  padding-top: 3rem;
+}

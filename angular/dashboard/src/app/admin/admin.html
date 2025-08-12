@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-6">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>name:</th>
+        <th>password</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for(item of adminList;track $index){
+          <tr>
+            <td>{{item.userName}}</td>
+            <td>{{item.password}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="onEdit(item)">Edit</button>
+              <button class="btn btn-danger" (click)="onDeleteAdmin(item._id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-body">
+  <div class="row">
+    <div class="col-6">
+      <label for="">User name</label>
+        <input type="text" [(ngModel)]="adminOpj.userName" class="form-control" />
+    </div>
+    <div class="col-6">
+      <label for="">password</label>
+        <input type="text" [(ngModel)]="adminOpj.password" class="form-control" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <button class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    </div>
+     <div class="col-6">
+      <button *ngIf="!adminOpj._id" class="btn btn-success" (click)="onSaveAdmin()">Save</button>
+      <button *ngIf="adminOpj._id" class="btn btn-success" (click)="onUpdateAdmin()">Update</button>
+    </div>
+  </div>
+</div>

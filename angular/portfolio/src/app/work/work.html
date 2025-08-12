@@ -1,0 +1,15 @@
+<div class="title position-relative mt-5 pt-5">
+    <div class="backimg position-absolute"></div>
+    <h2 class="pb-2 position-relative">My Work.</h2>
+  </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-4 userWork" *ngFor="let item of workList">
+      <div class="works text-center bg-light-subtle border border-shadow">
+        <img src="{{item.proImg}}" alt="">
+        <h2>{{item.proName}}</h2>
+        <p>{{item.desc}}</p>
+      </div>
+    </div>
+  </div>
+</div>

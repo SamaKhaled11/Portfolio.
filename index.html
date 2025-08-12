@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admin Dashboard — CRUD</title>
+<style>
+  :root{--bg:#f4f6f8;--nav:#1f2937;--accent:#0ea5a4;--card:#fff}
+  body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:#111}
+  .top{background:var(--nav);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:20px}
+  .brand{font-weight:700}
+  nav{display:flex;gap:6px;margin-left:auto}
+  nav button{background:transparent;color:#fff;border:0;padding:8px 12px;cursor:pointer;border-radius:6px}
+  nav button.active{background:rgba(255,255,255,0.06)}
+  .wrap{max-width:1100px;margin:20px auto;padding:18px}
+  .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(16,24,40,0.06);margin-bottom:18px}
+  h2{margin:0 0 12px 0}
+  .grid{display:grid;grid-template-columns:1fr 360px;gap:14px}
+  table{width:100%;border-collapse:collapse;background:var(--card)}
+  th,td{border:1px solid #e6e9ee;padding:8px;font-size:14px}
+  th{background:#f8fafc;text-transform:capitalize}
+  .controls{display:flex;gap:6px}
+  button.btn{padding:6px 10px;border-radius:6px;border:0;cursor:pointer}
+  .btn.edit{background:#3b82f6;color:#fff}
+  .btn.delete{background:#ef4444;color:#fff}
+  form .row{display:flex;flex-direction:column;margin-bottom:8px}
+  form input, form textarea{padding:8px;border:1px solid #d1d5db;border-radius:6px}
+  form textarea{resize:vertical}
+  .actions{display:flex;gap:8px;justify-content:flex-end}
+  .small{font-size:13px;color:#6b7280}
+  
+  .modal-back{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center}
+  .modal-back.show{display:flex}
+  .modal{background:var(--card);width:480px;padding:14px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,0.3)}
+  .modal h3{margin:0 0 10px 0}
+  .flex{display:flex;gap:8px}
+  @media (max-width:900px){
+    .grid{grid-template-columns:1fr; }
+    nav{overflow:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">Admin Dashboard</div>
+  <nav>
+    <button class="tab-btn active" data-tab="admins">Admins</button>
+    <button class="tab-btn" data-tab="users">Users</button>
+    <button class="tab-btn" data-tab="exper">Experience</button>
+    <button class="tab-btn" data-tab="projects">Projects</button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section id="admins" class="card panel">
+    <h2>Admins</h2>
+    <div class="grid">
+      <div>
+        <div id="adminsTableContainer" class="table-wrap"></div>
+      </div>
+      <aside>
+        <h3 class="small">Add Admin</h3>
+        <form id="adminAddForm">
+          <div class="row"><input name="userName" placeholder="Username" required></div>
+          <div class="row"><input name="password" placeholder="Password" required></div>
+          <div class="actions"><button class="btn" type="submit" style="background:var(--accent);color:#fff">Create Admin</button></div>
+        </form>
+      </aside>
+    </div>
+  </section>
+
+  <section id="users" class="card panel" style="display:none">
+    <h2>Users</h2>
+    <div class="grid">
+      <div>
+        <div id="usersTableContainer" class="table-wrap"></div>
+      </div>
+      <aside>
+        <h3 class="small">Add User</h3>
+        <form id="userAddForm">
+          <div class="row"><input name="name" placeholder="Name" required></div>
+          <div class="row"><input name="age" type="number" placeholder="Age"></div>
+          <div class="row"><input name="email" type="email" placeholder="Email"></div>
+          <div class="row"><input name="jobTitle" placeholder="Job Title"></div>
+          <div class="row"><input name="freelance" placeholder="Freelance (available/busy)"></div>
+          <div class="row"><input name="location" placeholder="Location"></div>
+          <div class="row"><input name="userImage" placeholder="Image URL"></div>
+          <div class="actions"><button class="btn" type="submit" style="background:#10b981;color:#fff">Create User</button></div>
+        </form>
+      </aside>
+    </div>
+  </section>
+
+  <section id="exper" class="card panel" style="display:none">
+    <h2>Experience</h2>
+    <div class="grid">
+      <div>
+        <div id="experTableContainer" class="table-wrap"></div>
+      </div>
+      <aside>
+        <h3 class="small">Add Experience</h3>
+        <form id="experAddForm">
+          <div class="row"><input name="experience" placeholder="Experience (e.g., 'Frontend')"></div>
+          <div class="row"><input name="level" placeholder="Level (e.g., 'Senior')"></div>
+          <div class="actions"><button class="btn" type="submit" style="background:#6366f1;color:#fff">Create</button></div>
+        </form>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="card panel" style="display:none">
+    <h2>Projects</h2>
+    <div class="grid">
+      <div>
+        <div id="projectsTableContainer" class="table-wrap"></div>
+      </div>
+      <aside>
+        <h3 class="small">Add Project</h3>
+        <form id="projectAddForm">
+          <div class="row"><input name="proImg" placeholder="Image URL"></div>
+          <div class="row"><input name="proName" placeholder="Project name" required></div>
+          <div class="row"><textarea name="desc" placeholder="Description"></textarea></div>
+          <div class="actions"><button class="btn" type="submit" style="background:#f59e0b;color:#fff">Create</button></div>
+        </form>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<!-- Edit Modal -->
+<div id="modal" class="modal-back">
+  <div class="modal">
+    <h3 id="modalTitle">Edit</h3>
+    <form id="editForm"></form>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px">
+      <button id="cancelBtn" class="btn">Cancel</button>
+      <button id="saveBtn" class="btn" style="background:#0ea5a4;color:#fff">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========== CONFIG ========== */
+const BASE = "http://localhost:3000";
+const collections = {
+  adminRoute: { containerId: "adminsTableContainer", addFormId: "adminAddForm",
+    fields: ["_id","userName","password"] },
+  userRoute: { containerId: "usersTableContainer", addFormId: "userAddForm",
+    fields: ["_id","name","age","email","jobTitle","freelance","location","userImage"] },
+  experRoute: { containerId: "experTableContainer", addFormId: "experAddForm",
+    fields: ["_id","experience","level"] },
+  projectRoute: { containerId: "projectsTableContainer", addFormId: "projectAddForm",
+    fields: ["_id","proImg","proName","desc"] }
+};
+/* ============================ */
+
+/* Tab switching */
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".panel").forEach(p => p.style.display = "none");
+    document.getElementById(btn.dataset.tab).style.display = "block";
+  });
+});
+
+/* Generic: fetch and render a collection table */
+async function loadCollection(routeKey) {
+  const cfg = collections[routeKey];
+  const container = document.getElementById(cfg.containerId);
+  try {
+    const res = await fetch(`${BASE}/${routeKey}`);
+    if (!res.ok) throw new Error("Network error");
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      container.innerHTML = `<div class="card small">No items in ${routeKey}.</div>`;
+      return;
+    }
+
+    // Build table header using cfg.fields (fallback to keys from first object)
+    const fields = cfg.fields.length ? cfg.fields : Object.keys(data[0]);
+    let html = "<table><thead><tr>";
+    fields.forEach(f => html += `<th>${f}</th>`);
+    html += "<th>Actions</th></tr></thead><tbody>";
+
+    data.forEach(item => {
+      html += "<tr>";
+      fields.forEach(f => {
+        let value = item[f];
+        // show small image if userImage/proImg
+        if ((f === "userImage" || f === "proImg") && value) {
+          const safe = String(value).replace(/"/g,'&quot;');
+          value = `<img src="${safe}" alt="" width="60">`;
+        } else if (f === "password" && value) {
+          // mask password visually but still allow editing
+          value = "••••••";
+        } else if (value === undefined || value === null) value = "";
+        html += `<td>${value}</td>`;
+      });
+
+      html += `<td class="controls">
+                <button class="btn edit" onclick='openEdit("${routeKey}", ${JSON.stringify(item).replace(/</g,"&lt;")})'>Edit</button>
+                <button class="btn delete" onclick="deleteItem('${routeKey}','${item._id}')">Delete</button>
+              </td>`;
+      html += "</tr>";
+    });
+
+    html += "</tbody></table>";
+    container.innerHTML = html;
+
+  } catch (err) {
+    container.innerHTML = `<div class="card small">Error loading ${routeKey}: ${err.message}</div>`;
+    console.error(err);
+  }
+}
+
+/* Load all collections */
+function loadAll() {
+  Object.keys(collections).forEach(k => loadCollection(k));
+}
+
+/* Generic create */
+function attachCreateHandlers() {
+  Object.entries(collections).forEach(([route, cfg]) => {
+    const form = document.getElementById(cfg.addFormId);
+    if (!form) return;
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const obj = {};
+      for (const [k,v] of fd.entries()) {
+        if (v === "") continue;
+        // number conversion for age
+        if (k === "age") obj[k] = Number(v);
+        else obj[k] = v;
+      }
+      try {
+        const res = await fetch(`${BASE}/${route}`, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify(obj)
+        });
+        if (!res.ok) throw new Error("Failed to create");
+        form.reset();
+        loadCollection(route);
+      } catch (err) {
+        alert("Create error: " + err.message);
+      }
+    });
+  });
+}
+
+/* Delete */
+async function deleteItem(route, id) {
+  if (!confirm("Delete this item?")) return;
+  try {
+    const res = await fetch(`${BASE}/${route}/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("Delete failed");
+    loadCollection(route);
+  } catch (err) {
+    alert("Delete error: " + err.message);
+  }
+}
+
+/* EDIT modal logic */
+const modalBack = document.getElementById("modal");
+const editForm = document.getElementById("editForm");
+const modalTitle = document.getElementById("modalTitle");
+document.getElementById("cancelBtn").addEventListener("click", e => {
+  e.preventDefault(); closeModal();
+});
+document.getElementById("saveBtn").addEventListener("click", async (e) => {
+  e.preventDefault();
+  const route = editForm.dataset.route;
+  const id = editForm.dataset.id;
+  const formData = new FormData(editForm);
+  const obj = {};
+  for (const [k,v] of formData.entries()) {
+    if (v === "") continue;
+    obj[k] = (k === "age") ? Number(v) : v;
+  }
+  try {
+    const res = await fetch(`${BASE}/${route}/${id}`, {
+      method: "PATCH",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(obj)
+    });
+    if (!res.ok) throw new Error("Update failed");
+    closeModal();
+    loadCollection(route);
+  } catch (err) {
+    alert("Update error: " + err.message);
+  }
+});
+
+function openEdit(route, item) {
+  // item is an object
+  editForm.innerHTML = "";
+  editForm.dataset.route = route;
+  editForm.dataset.id = item._id;
+  modalTitle.textContent = `Edit ${route} — ${item._id}`;
+
+  const cfg = collections[route];
+  // create input fields for each field except _id
+  cfg.fields.forEach(f => {
+    if (f === "_id") return;
+    const row = document.createElement("div");
+    row.className = "row";
+    const label = document.createElement("label");
+    label.textContent = f;
+    let input;
+    // textarea for descriptions
+    if (f === "desc") {
+      input = document.createElement("textarea");
+      input.rows = 4;
+    } else {
+      input = document.createElement("input");
+    }
+    input.name = f;
+    input.value = (item[f] !== undefined && item[f] !== null) ? item[f] : "";
+    row.appendChild(label);
+    row.appendChild(input);
+    editForm.appendChild(row);
+  });
+
+  modalBack.classList.add("show");
+}
+
+function closeModal() {
+  modalBack.classList.remove("show");
+  editForm.innerHTML = "";
+  delete editForm.dataset.route;
+  delete editForm.dataset.id;
+}
+
+
+attachCreateHandlers();
+loadAll();
+</script>
+</body>
+</html>

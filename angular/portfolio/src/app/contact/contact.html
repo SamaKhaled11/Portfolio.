@@ -1,0 +1,40 @@
+<div class="container pt-5" id="cont">
+  <h2>Contact Us</h2>
+  <form (ngSubmit)="onSaveContact()" #contactForm="ngForm" novalidate>
+    <input
+      name="name"
+      type="text"
+      placeholder="Name"
+      [(ngModel)]="contactObj.name"
+      required
+      class="form-control mb-3"
+    />
+    <input
+      name="email"
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="contactObj.email"
+      required
+      class="form-control mb-3"
+    />
+    <input
+      name="subject"
+      type="text"
+      placeholder="Subject"
+      [(ngModel)]="contactObj.subject"
+      required
+      class="form-control mb-3"
+    />
+    <textarea
+      name="message"
+      placeholder="Message for me"
+      [(ngModel)]="contactObj.message"
+      required
+      class="form-control mb-3"
+      rows="4"
+    ></textarea>
+    <button type="submit" [disabled]="contactForm.invalid" class="btn btn-primary">
+      SEND MESSAGE
+    </button>
+  </form>
+</div>

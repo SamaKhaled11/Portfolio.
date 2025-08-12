@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-6">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Experience:</th>
+        <th>Level of experience</th>
+
+      </tr>
+      </thead>
+      <tbody>
+        @for(item of experList;track $index){
+          <tr>
+            <td>{{item.experience}}</td>
+            <td>{{item.level}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="onEdit(item)">Edit</button>
+              <button class="btn btn-danger" (click)="onDeleteExper(item._id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="card-body">
+  <div class="row">
+    <div class="col-6">
+      <label for="">experience</label>
+        <input type="text" [(ngModel)]="experOpj.experience" class="form-control" />
+    </div>
+    <div class="col-6">
+      <label for="">level</label>
+        <input type="text" [(ngModel)]="experOpj.level" class="form-control" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <button class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    </div>
+     <div class="col-6">
+      <button *ngIf="!experOpj._id" class="btn btn-success" (click)="onSaveExper()">Save</button>
+      <button *ngIf="experOpj._id" class="btn btn-success" (click)="onUpdateExper()">Update</button>
+    </div>
+  </div>
+</div>
+

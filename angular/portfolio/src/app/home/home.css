@@ -1,0 +1,15 @@
+header{
+    padding-top: 80px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url("/imgs/work-6.jpg");
+    background-position: center center;
+    background-size:cover;
+}
+.text-center h1{
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+}
+.text-center h2{
+    font-size: 3rem;
+    font-weight: 200;
+    margin-bottom: 3rem;
+}
